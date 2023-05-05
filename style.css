@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 .header {
     border: 2px solid black;
     text-align: center;
@@ -7,11 +10,10 @@
     /* height:400px; */
     border: 1px solid black;
 }
-
 .layout {
     
     /* height:400px; */
-    border: 1px solid black;
+    /* border: 1px solid black; */
    
 
 }
@@ -25,4 +27,12 @@ form input, form select {
 }
 form input[type=submit]{
     background-color: green;
+}
+.margin-top-5 {
+    margin-top: 20px;
+}
+.filter-label{
+    font-size: large;
+    font-weight: bold;
+    color: rgb(20, 50, 148);
 }
