@@ -10,11 +10,10 @@
     /* height:400px; */
     border: 1px solid black;
 }
-
 .layout {
     
     /* height:400px; */
-    border: 1px solid black;
+    /* border: 1px solid black; */
    
 
 }
@@ -31,4 +30,9 @@ form input[type=submit]{
 }
 .margin-top-5 {
     margin-top: 20px;
+}
+.filter-label{
+    font-size: large;
+    font-weight: bold;
+    color: rgb(20, 50, 148);
 }
