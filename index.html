@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,38 +10,58 @@
     <link href="style.css" rel="stylesheet">
     <title>Task Management</title>
 </head>
+
 <body>
     <header class="header">
         <h3>Task Management</h3>
     </header>
     <div class="container">
-    <div class="row">
-    <div class="col-4 form">
-        <form class="user-form">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name">
-            <br>
-            <label for="description">Description</label>
-            <input type="text" id="description" name="description">
-            <br>
-            <label for="assigned-to">Assigned to</label>
-            <input type="text" id="assigned-to" name="assigned-to">
-            <br>
-            <label for="due-Date">Due Date</label>
-            <input type="date" id="due-Date" name="due-Date">
-            <br>
-            <label for="status">Status</label>
-            <select name="status">
-                <option value="to-do">TO DO</option>
-                <option value="in-progress">IN PROGREE</option>
-                <option value="review">REVIEW</option>
-                <option value="done">DONE</option>
-            </select>
-        </form>
+        <div class="row">
+            <div class="col-4 form">
+                <form class="user-form">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                    <br>
+                    <label for="description">Description</label>
+                    <input type="text" id="description" name="description">
+                    <br>
+                    <label for="assigned-to">Assigned to</label>
+                    <input type="text" id="assigned-to" name="assigned-to">
+                    <br>
+                    <label for="due-Date">Due Date</label>
+                    <input type="date" id="due-Date" name="due-Date">
+                    <br>
+                    <label for="status">Status</label>
+                    <select name="status">
+                        <option value="to-do">TO DO</option>
+                        <option value="in-progress">IN PROGREE</option>
+                        <option value="review">REVIEW</option>
+                        <option value="done">DONE</option>
+                    </select>
+                    <br>
+                    <input type="submit" value="create">
+                </form>
+            </div>
+            <div class="col-8 layout">
+            <div class="row">filter</div>
+            <div class="row">
+                <div class="col">
+                    <div class="row">cards
+                        <div class="col">1</div>
+                        <div class="col">2</div>
+                        <div class="col">3</div>
+                    </div>
+                    <div class="row">cards
+                        <div class="col">4</div>
+                        <div class="col">5</div>
+                        <div class="col">6</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
-    <div class="col-8 layout"></div>
-</div>
-</div>
-<footer class="footer">copyright</footer>
+    <footer class="footer">copyright</footer>
 </body>
+
 </html>
