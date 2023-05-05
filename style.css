@@ -2,9 +2,12 @@
     box-sizing: border-box;
 }
 .header {
-    border: 2px solid black;
-    text-align: center;
-    margin: 5px;
+    /* border-bottom: 2px solid rgb(46, 115, 172); */
+    text-align: left;
+    /* margin: 5px; */
+    padding: 10px;
+    background-image: linear-gradient(to bottom right, rgb(174, 184, 46), rgb(80, 80, 12));
+    
 }
 .form {
     /* height:400px; */
@@ -20,7 +23,11 @@
 .footer {
     text-align: center;
     background-color: gray;
-    margin: 10px;
+    /* margin-top: 10px; */
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
 }
 form input, form select {
     margin-top: 30px;
@@ -34,5 +41,12 @@ form input[type=submit]{
 .filter-label{
     font-size: large;
     font-weight: bold;
-    color: rgb(20, 50, 148);
+    color: rgb(33, 61, 14);
+}
+.card {
+    background-color: rgb(207, 201, 201);
+    margin-bottom: 5px;
+}
+.container {
+    padding-bottom: 70px;
 }
