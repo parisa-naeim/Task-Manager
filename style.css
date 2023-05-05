@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 .header {
     border: 2px solid black;
     text-align: center;
@@ -25,4 +28,7 @@ form input, form select {
 }
 form input[type=submit]{
     background-color: green;
+}
+.margin-top-5 {
+    margin-top: 20px;
 }
