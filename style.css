@@ -1,0 +1,27 @@
+.header {
+    border: 2px solid black;
+    text-align: center;
+    margin: 5px;
+}
+.form {
+    height:400px;
+    border: 1px solid black;
+   
+
+
+}
+.layout {
+    
+    height:400px;
+    border: 1px solid black;
+   
+
+}
+.footer {
+    text-align: center;
+    background-color: gray;
+    margin: 10px;
+}
+form input, form select {
+    margin-top: 40px;
+}
