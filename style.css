@@ -11,7 +11,7 @@
 }
 .form {
     /* height:400px; */
-    border: 1px solid black;
+    border: 1px solid rgb(182, 46, 46);
 }
 .layout {
     
@@ -29,12 +29,11 @@
     width: 100%;
     padding: 20px;
 }
-form input, form select {
-    margin-top: 30px;
-}
-form input[type=submit]{
-    background-color: green;
-}
+/* form input, form select { */
+    /* margin-top: 30px; */
+/* form input[type=submit]{ */
+    /* background-color: green; */
+
 .margin-top-5 {
     margin-top: 20px;
 }
