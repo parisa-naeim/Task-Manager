@@ -27,7 +27,7 @@ class Task {
 
 }
 
-function creatTask(name, description, assignedTo, dueDate, status) {
+function createTask(name, description, assignedTo, dueDate, status) {
     return new Task(name, description, assignedTo, dueDate, status);
 }
-export { creatTask };
+export { createTask };

@@ -1,15 +1,15 @@
-import { creatTask } from './task.js';
+import { createTask } from './task.js';
 
 const tasks = [];
 
 function populateTasks() {
 
-    tasks.push(creatTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'In Progress'));
-    tasks.push(creatTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'To do'));
-    tasks.push(creatTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'In Progress'));
-    tasks.push(creatTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'Done'));
-    tasks.push(creatTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'Done'));
-    tasks.push(creatTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'Review'));
+    tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'In Progress'));
+    tasks.push(createTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'To do'));
+    tasks.push(createTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'In Progress'));
+    tasks.push(createTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'Done'));
+    tasks.push(createTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'Done'));
+    tasks.push(createTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'Review'));
 
 }
 
@@ -17,7 +17,6 @@ function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
     let allTasks = tasks.map(generateTaskHtml).join('');
     taskContainer.innerHTML += allTasks;
-
 }
 
 function generateTaskHtml(task) {
@@ -37,3 +36,27 @@ function generateTaskHtml(task) {
 
 populateTasks();
 displayTasks();
+
+// active create button
+
+
+
+
+
+const addNewTask = () => {
+    const userName = document.getElementById('name');
+    const userDescription = document.getElementById('description');
+    const userAssignTo = document.getElementById('assigned-to');
+    const userDueDate = document.getElementById('due-Date');
+    const userStatus = document.getElementById('status');
+    console.log(userName.value);
+
+    const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+
+    tasks.push(userNewTask);
+    displayTasks();
+
+};
+
+const createButton = document.getElementById('create');
+createButton.addEventListener('click', addNewTask);
