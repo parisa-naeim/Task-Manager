@@ -17,7 +17,7 @@
     <div class="container mt-4 mb-4">
         <div class="row">
             <div class="col-md-4 col-sm-6">
-                <form class="user-form p-4 border rounded-2" class="">
+                <div class="user-form p-4 border rounded-2" id="create-form" action="">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name">
                     <br>
@@ -31,15 +31,15 @@
                     <input type="date" class="form-control" id="due-Date" name="due-Date">
                     <br>
                     <label for="status" class="form-label">Status</label>
-                    <select name="status" class="form-select">
+                    <select name="status" class="form-select" id="status">
                         <option value="to-do">TO DO</option>
                         <option value="in-progress">IN PROGREE</option>
                         <option value="review">REVIEW</option>
                         <option value="done">DONE</option>
                     </select>
                     <br>
-                    <input type="submit" class="btn btn-secondary" value="create">
-                </form>
+                    <input type="submit"  class="btn btn-secondary" value="create" id="create">
+                    </div>
             </div>
 
 
