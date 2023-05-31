@@ -2,15 +2,22 @@ import { creatTask } from './task.js';
 
 const tasks = [];
 
-function addTask() {
-    const task1 = creatTask('task1', 'dessign wireframe', 'Alex', '23/4/2023', 'in progress');
-    tasks.push(task1);
+function populateTasks() {
+
+    tasks.push(creatTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'In Progress'));
+    tasks.push(creatTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'To do'));
+    tasks.push(creatTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'In Progress'));
+    tasks.push(creatTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'Done'));
+    tasks.push(creatTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'Done'));
+    tasks.push(creatTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'Review'));
+
 }
 
 function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
-    let newTask = generateTaskHtml(tasks[0]);
-    taskContainer.innerHTML += newTask;
+    let allTasks = tasks.map(generateTaskHtml).join('');
+    taskContainer.innerHTML += allTasks;
+
 }
 
 function generateTaskHtml(task) {
@@ -28,5 +35,5 @@ function generateTaskHtml(task) {
 
 }
 
-addTask();
+populateTasks();
 displayTasks();
