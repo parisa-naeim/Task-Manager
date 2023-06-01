@@ -16,7 +16,7 @@ function populateTasks() {
 function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
     let allTasks = tasks.map(generateTaskHtml).join('');
-    taskContainer.innerHTML += allTasks;
+    taskContainer.innerHTML = allTasks;
 }
 
 function generateTaskHtml(task) {
@@ -53,6 +53,9 @@ const addNewTask = () => {
 
     const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
 
+
+
+
     tasks.push(userNewTask);
     displayTasks();
 
@@ -60,3 +63,5 @@ const addNewTask = () => {
 
 const createButton = document.getElementById('create');
 createButton.addEventListener('click', addNewTask);
+
+
