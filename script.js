@@ -29,6 +29,7 @@ function generateTaskHtml(task) {
                                 <label>${task.assignedTo}</label>
                                 <label>${task.dueDate}<label>
                             </div>
+                            <input type="submit"  class="btn btn-secondary" value="delete" id="delete" onclick="activeDeleteButton(${task.id})" >
                         </div>
                     </div>`;
 
@@ -65,3 +66,20 @@ const createButton = document.getElementById('create');
 createButton.addEventListener('click', addNewTask);
 
 
+// delete button
+
+const deleteButton = document.getElementById('delete');
+//  deleteButton.addEventListener('click', activeDeleteButton);
+function activeDeleteButton(taskId) {
+    console.log(taskId);
+    // var panelHide = document.getElementById("delete"); 
+    // tasks.splice();
+
+};
+
+// // var panel = document.getElementByClassName("btn");
+// //     panel.addEventListener("click",hide);
+// //     function hide(){
+// // 	    var panelHide = document.getElementByClassName("mypanel");
+// // 	    panelHide.className = "hide";
+//     }
