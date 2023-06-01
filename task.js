@@ -5,7 +5,9 @@ class Task {
         this._assignedTo = assignedTo;
         this._dueDate = dueDate;
         this._status = status;
+
     }
+
 
     get name() {
         return this._name;
@@ -24,10 +26,10 @@ class Task {
     get status() {
         return this._status;
     }
-
 }
 
 function createTask(name, description, assignedTo, dueDate, status) {
     return new Task(name, description, assignedTo, dueDate, status);
 }
 export { createTask };
+
