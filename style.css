@@ -49,3 +49,19 @@
 .container {
     padding-bottom: 70px;
 }
+.change-d{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    /* width: 10px;
+    height: 10px; */
+
+}
+.change{
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    /* width: 10px;
+    height: 10px; */
+
+}

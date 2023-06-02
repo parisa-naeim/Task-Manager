@@ -19,22 +19,45 @@ function displayTasks() {
     taskContainer.innerHTML = allTasks;
     document.querySelectorAll('#delete').forEach(item => {
         item.addEventListener('click', activeDeleteButton)
+
+    });
+    document.querySelectorAll('#edit').forEach(item => {
+        item.addEventListener('click', activeEditButton)
     });
 }
 
 
 
 function generateTaskHtml(task) {
-    return `<div class="col-md-6 col-lg-4 col-12" >  
+    return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
                         <div class="card ">
-                            <div class="card-body">
+                        <div class="change">
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">delete</button>
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="edit" id="edit">edit</button></div>
+                        <div class="card-body">
                                 <h5 class="card-title">${task.name}</h5>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
                                 <p class="card-text"> ${task.description}</p>
                                 <label>${task.assignedTo}</label>
                                 <label>${task.dueDate}<label>
                             </div>
-                            <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">delete</button>
+                            
+                        </div>
+                    </div>`
+        +
+        `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-editable" style="display:none">  
+                        <div class="card ">
+                        <div class="change">
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">save</button>
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="edit" id="edit">cancel</button></div>
+                        <div class="card-body">
+                                <h5 class="card-title">${task.name}</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
+                                <p class="card-text"> ${task.description}</p>
+                                <label>${task.assignedTo}</label>
+                                <label>${task.dueDate}<label>
+                            </div>
+                            
                         </div>
                     </div>`;
 
@@ -73,4 +96,12 @@ function activeDeleteButton(event) {
     displayTasks();
 };
 
+
+// edit button
+function activeEditButton(event) {
+    const taskId = event.target.name;
+    document.getElementById(`${taskId}-original`).style.display = 'none';
+    document.getElementById(`${taskId}-editable`).style.display = 'block';
+    console.log('check');
+}
 
