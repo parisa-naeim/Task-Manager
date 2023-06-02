@@ -17,6 +17,9 @@ function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
     let allTasks = tasks.map(generateTaskHtml).join('');
     taskContainer.innerHTML = allTasks;
+    document.querySelectorAll('#delete').forEach(item => {
+        item.addEventListener('click', activeDeleteButton)
+    });
 }
 
 
@@ -31,7 +34,7 @@ function generateTaskHtml(task) {
                                 <label>${task.assignedTo}</label>
                                 <label>${task.dueDate}<label>
                             </div>
-                            <button type="button"  class="btn btn-secondary" value="delete" id="delete">delete</button>
+                            <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">delete</button>
                         </div>
                     </div>`;
 
@@ -41,10 +44,6 @@ populateTasks();
 displayTasks();
 
 // active create button
-
-
-
-
 
 const addNewTask = () => {
     const userName = document.getElementById('name');
@@ -56,25 +55,22 @@ const addNewTask = () => {
 
     const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
 
-
-
-
     tasks.push(userNewTask);
     displayTasks();
-
 };
 
 const createButton = document.getElementById('create');
 createButton.addEventListener('click', addNewTask);
 
-
 // delete button
 
-const deleteButton = document.getElementById('delete');
-deleteButton.addEventListener('click', activeDeleteButton);
-function activeDeleteButton(taskId) {
-    console.log(taskId);
-
+function activeDeleteButton(event) {
+    // find the index of task which is clicked then if the value is the same as id of task,
+    const index = tasks.findIndex(task => task.id == event.target.name);
+    // then remove it from the task array
+    tasks.splice(index, 1);
+    // call displayTask to show in UI
+    displayTasks();
 };
 
 
