@@ -1,11 +1,11 @@
 class Task {
-    constructor(name, description, assignedTo, dueDate, status) {
+    constructor(name, description, assignedTo, dueDate, status, id) {
         this._name = name;
         this._description = description;
         this._assignedTo = assignedTo;
         this._dueDate = dueDate;
         this._status = status;
-
+        this._id = id;
     }
 
 
@@ -26,10 +26,15 @@ class Task {
     get status() {
         return this._status;
     }
+    get id() {
+        return this._id;
+    }
 }
+let lastId = 1;
 
 function createTask(name, description, assignedTo, dueDate, status) {
-    return new Task(name, description, assignedTo, dueDate, status);
+    return new Task(name, description, assignedTo, dueDate, status, lastId++);
 }
+
 export { createTask };
 
