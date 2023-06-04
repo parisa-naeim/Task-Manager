@@ -21,12 +21,15 @@
                 <div class="user-form p-4 border rounded-2" id="create-form" action="">
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name">
+                    <p id="invalidName" class="error"></p>
                     <br>
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description"></textarea>
+                    <p id="invalidDescription" class="error"></p>
                     <br>
                     <label for="assigned-to" class="form-label">Assigned to</label>
                     <input type="text" class="form-control" id="assigned-to" name="assigned-to">
+                    <p id="invalidAssignedTo" class="error"></p>
                     <br>
                     <label for="due-Date" class="form-label">Due Date</label>
                     <input type="date" class="form-control" id="due-Date" name="due-Date">
@@ -39,8 +42,9 @@
                         <option value="done">DONE</option>
                     </select>
                     <br>
-                    <input type="submit" class="btn btn-secondary" value="create" id="create">
-                </div>
+                    <input type="submit"  class="btn btn-secondary" value="create" id="create">
+                    <input type="reset"  class="btn btn-secondary" value="reset" id="reset">
+                    </div>
             </div>
 
 
