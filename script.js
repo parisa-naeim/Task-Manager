@@ -14,12 +14,12 @@ const invalidAssignedTo = document.getElementById('invalidAssignedTo');
 
 function populateTasks() {
 
-    tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'In Progress'));
-    tasks.push(createTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'To do'));
-    tasks.push(createTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'In Progress'));
-    tasks.push(createTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'Done'));
-    tasks.push(createTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'Done'));
-    tasks.push(createTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'Review'));
+    tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'in-progress'));
+    tasks.push(createTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'to-do'));
+    tasks.push(createTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'in-progress'));
+    tasks.push(createTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'done'));
+    tasks.push(createTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'done'));
+    tasks.push(createTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'review'));
 
 }
 
@@ -33,6 +33,9 @@ function displayTasks() {
     });
     document.querySelectorAll('#edit').forEach(item => {
         item.addEventListener('click', activeEditButton)
+    });
+    document.querySelectorAll('#save').forEach(item => {
+        item.addEventListener('click', activeSaveButton)
     });
 }
 
@@ -58,14 +61,16 @@ function generateTaskHtml(task) {
         `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-editable" style="display:none">  
                         <div class="card ">
                         <div class="change">
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">save</button>
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="edit" id="edit">cancel</button></div>
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="save" id="save">save</button>
+                        <button type="button" name="${task.id}" class="btn btn-secondary" value="cancel" id="cancel">cancel</button></div>
+                        
+                        
                         <div class="card-body">
-                                <h5 class="card-title">${task.name}</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
-                                <p class="card-text"> ${task.description}</p>
-                                <label>${task.assignedTo}</label>
-                                <label>${task.dueDate}<label>
+                                <input id="${task.id}-name" value="${task.name}" class="form-select" type="text" class="card-title">
+                                <input id="${task.id}-status" value="${task.status}" class="card-subtitle mb-2 text-body-secondary">
+                                <input id="${task.id}-description" type="text" value="${task.description}" class="card-text"> 
+                                <input id="${task.id}-assignedTo" type="text" value="${task.assignedTo}">
+                                <input id="${task.id}-dueDate" type="text" value="${task.dueDate}">
                             </div>
                             
                         </div>
@@ -139,6 +144,8 @@ function activeDeleteButton(event) {
 // edit button
 function activeEditButton(event) {
     const taskId = event.target.name;
+    // `${taskId}-original`
+    // taskId + '-original'
     document.getElementById(`${taskId}-original`).style.display = 'none';
     document.getElementById(`${taskId}-editable`).style.display = 'block';
     console.log('check');
@@ -147,3 +154,26 @@ const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', clearForm);
 
 
+// save button
+function activeSaveButton(event) {
+    const taskId = event.target.name;
+
+    // console.log('hgkhikl');
+    const index = tasks.findIndex(task => task.id == event.target.name);
+    const saveName = document.getElementById(`${taskId}-name`).value
+    const saveStatus = document.getElementById(`${taskId}-status`).value
+    const saveDescription = document.getElementById(`${taskId}-description`).value
+    const saveAssignedTo = document.getElementById(`${taskId}-assignedTo`).value
+    const saveDueDate = document.getElementById(`${taskId}-dueDate`).value
+
+    // console.log(saveName);
+    tasks[index]._name = saveName
+    tasks[index]._status = saveStatus
+    tasks[index]._description = saveDescription
+    tasks[index]._assignedTo = saveAssignedTo
+    tasks[index]._dueDate = saveDueDate
+
+    console.log(tasks[index]);
+
+    displayTasks();
+}
