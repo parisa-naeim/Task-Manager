@@ -2,6 +2,16 @@ import { createTask } from './task.js';
 
 const tasks = [];
 
+const userName = document.getElementById('name');
+const userDescription = document.getElementById('description');
+const userAssignTo = document.getElementById('assigned-to');
+const userDueDate = document.getElementById('due-Date');
+const userStatus = document.getElementById('status');
+
+const invalidName = document.getElementById('invalidName');
+const invalidDescription = document.getElementById('invalidDescription');
+const invalidAssignedTo = document.getElementById('invalidAssignedTo');
+
 function populateTasks() {
 
     tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'In Progress'));
@@ -69,18 +79,47 @@ displayTasks();
 // active create button
 
 const addNewTask = () => {
-    const userName = document.getElementById('name');
-    const userDescription = document.getElementById('description');
-    const userAssignTo = document.getElementById('assigned-to');
-    const userDueDate = document.getElementById('due-Date');
-    const userStatus = document.getElementById('status');
-    console.log(userName.value);
+    invalidName.innerHTML = "";
+    invalidDescription.innerHTML = "";
+    invalidAssignedTo.innerHTML = "";
 
-    const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+    let validInputs = true;
 
+if(userName.value.length <= 8) {
+    validInputs= false;
+    invalidName.innerHTML = "Please provide valid name with at lease 8 chars";
+}
+
+if(userDescription.value.length <= 15) {
+    validInputs= false;
+    invalidDescription.innerHTML = "Please provide valid description with at lease 15 chars";
+}
+
+if(userAssignTo .value.length <= 8) {
+    validInputs= false;
+    invalidAssignedTo.innerHTML= "Please provide valid assigned to value with at lease 8 chars";
+}
+
+
+if (validInputs) {
+const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
     tasks.push(userNewTask);
     displayTasks();
+}
+
 };
+
+
+const clearForm = () => {
+
+    invalidName.innerHTML = "";
+    invalidDescription.innerHTML = "";
+    invalidAssignedTo.innerHTML = "";
+
+    userName.value = "";
+    userDescription.value = "";
+    userAssignTo.value = "";
+}
 
 const createButton = document.getElementById('create');
 createButton.addEventListener('click', addNewTask);
@@ -104,4 +143,7 @@ function activeEditButton(event) {
     document.getElementById(`${taskId}-editable`).style.display = 'block';
     console.log('check');
 }
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', clearForm);
+
 

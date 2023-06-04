@@ -65,3 +65,7 @@
     height: 10px; */
 
 }
+
+p.error {
+    color: red;
+}
