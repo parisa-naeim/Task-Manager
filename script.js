@@ -27,17 +27,17 @@ function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
     let allTasks = tasks.map(generateTaskHtml).join('');
     taskContainer.innerHTML = allTasks;
-    document.querySelectorAll('#delete').forEach(item => {
+    document.querySelectorAll('.delete-btn').forEach(item => {
         item.addEventListener('click', activeDeleteButton)
 
     });
-    document.querySelectorAll('#edit').forEach(item => {
+    document.querySelectorAll('.edit-btn').forEach(item => {
         item.addEventListener('click', activeEditButton)
     });
-    document.querySelectorAll('#save').forEach(item => {
+    document.querySelectorAll('.save-btn').forEach(item => {
         item.addEventListener('click', activeSaveButton)
     });
-    document.querySelectorAll('#cancel').forEach(item => {
+    document.querySelectorAll('.cancel-btn').forEach(item => {
         item.addEventListener('click', activeCancelButton)
     });
 
@@ -50,8 +50,9 @@ function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
                         <div class="card ">
                         <div class="change">
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="delete" id="delete">delete</button>
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="edit" id="edit">edit</button></div>
+                        <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
+                        <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
+                        </div>
                         <div class="card-body">
                                 <h5 class="card-title">${task.name}</h5>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
@@ -64,16 +65,17 @@ function generateTaskHtml(task) {
                     </div>`
         +
         `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-editable" style="display:none">  
-                        <div class="card ">
+                        <div class="card pt-3">
                         <div class="change">
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="save" id="save">save</button>
-                        <button type="button" name="${task.id}" class="btn btn-secondary" value="cancel" id="cancel">cancel</button></div>
+
+                        <span class="material-symbols-outlined save-btn" id="${task.id}">save</span>
+                        <span class="material-symbols-outlined cancel-btn" id="${task.id}">cancel</span>
                         
-                        
+                        </div>
                         <div class="card-body">
-                                <input id="${task.id}-name" value="${task.name}" class="form-select" type="text" class="card-title">
-                                <input id="${task.id}-status" value="${task.status}" class="card-subtitle mb-2 text-body-secondary">
-                                <input id="${task.id}-description" type="text" value="${task.description}" class="card-text"> 
+                                <input id="${task.id}-name" value="${task.name}"  type="text">
+                                <input id="${task.id}-status" value="${task.status}">
+                                <input id="${task.id}-description" type="text" value="${task.description}"> 
                                 <input id="${task.id}-assignedTo" type="text" value="${task.assignedTo}">
                                 <input id="${task.id}-dueDate" type="text" value="${task.dueDate}">
                             </div>
@@ -137,8 +139,12 @@ createButton.addEventListener('click', addNewTask);
 // delete button
 
 function activeDeleteButton(event) {
+    console.log(event.target);
+
     // find the index of task which is clicked then if the value is the same as id of task,
-    const index = tasks.findIndex(task => task.id == event.target.name);
+    const index = tasks.findIndex(task => task.id == event.target.id);
+    console.log(event.target.id);
+    console.log(index);
     // then remove it from the task array
     tasks.splice(index, 1);
     // call displayTask to show in UI
@@ -148,7 +154,7 @@ function activeDeleteButton(event) {
 
 // edit button
 function activeEditButton(event) {
-    const taskId = event.target.name;
+    const taskId = event.target.id;
     // `${taskId}-original`
     // taskId + '-original'
     document.getElementById(`${taskId}-original`).style.display = 'none';
@@ -161,10 +167,10 @@ resetButton.addEventListener('click', clearForm);
 
 // save button
 function activeSaveButton(event) {
-    const taskId = event.target.name;
+    const taskId = event.target.id;
 
     // console.log('hgkhikl');
-    const index = tasks.findIndex(task => task.id == event.target.name);
+    const index = tasks.findIndex(task => task.id == event.target.id);
     const saveName = document.getElementById(`${taskId}-name`).value
     const saveStatus = document.getElementById(`${taskId}-status`).value
     const saveDescription = document.getElementById(`${taskId}-description`).value
@@ -184,7 +190,7 @@ function activeSaveButton(event) {
 }
 // cancel button
 function activeCancelButton(event) {
-    const taskId = event.target.name;
+    const taskId = event.target.id;
     document.getElementById(`${taskId}-original`).style.display = 'block';
     document.getElementById(`${taskId}-editable`).style.display = 'none';
     console.log('check');
