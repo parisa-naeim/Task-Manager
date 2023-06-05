@@ -37,6 +37,11 @@ function displayTasks() {
     document.querySelectorAll('#save').forEach(item => {
         item.addEventListener('click', activeSaveButton)
     });
+    document.querySelectorAll('#cancel').forEach(item => {
+        item.addEventListener('click', activeCancelButton)
+    });
+
+
 }
 
 
@@ -90,27 +95,27 @@ const addNewTask = () => {
 
     let validInputs = true;
 
-if(userName.value.length <= 8) {
-    validInputs= false;
-    invalidName.innerHTML = "Please provide valid name with at lease 8 chars";
-}
+    if (userName.value.length <= 8) {
+        validInputs = false;
+        invalidName.innerHTML = "Please provide valid name with at lease 8 chars";
+    }
 
-if(userDescription.value.length <= 15) {
-    validInputs= false;
-    invalidDescription.innerHTML = "Please provide valid description with at lease 15 chars";
-}
+    if (userDescription.value.length <= 15) {
+        validInputs = false;
+        invalidDescription.innerHTML = "Please provide valid description with at lease 15 chars";
+    }
 
-if(userAssignTo .value.length <= 8) {
-    validInputs= false;
-    invalidAssignedTo.innerHTML= "Please provide valid assigned to value with at lease 8 chars";
-}
+    if (userAssignTo.value.length <= 8) {
+        validInputs = false;
+        invalidAssignedTo.innerHTML = "Please provide valid assigned to value with at lease 8 chars";
+    }
 
 
-if (validInputs) {
-const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
-    tasks.push(userNewTask);
-    displayTasks();
-}
+    if (validInputs) {
+        const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+        tasks.push(userNewTask);
+        displayTasks();
+    }
 
 };
 
@@ -176,4 +181,12 @@ function activeSaveButton(event) {
     console.log(tasks[index]);
 
     displayTasks();
+}
+// cancel button
+function activeCancelButton(event) {
+    const taskId = event.target.name;
+    document.getElementById(`${taskId}-original`).style.display = 'block';
+    document.getElementById(`${taskId}-editable`).style.display = 'none';
+    console.log('check');
+
 }
