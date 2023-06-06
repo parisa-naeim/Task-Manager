@@ -1,3 +1,5 @@
+
+// task class shows the structure and getter of tasks, we use underscore because we dont want to set these properties directly
 class Task {
     constructor(name, description, assignedTo, dueDate, status, id) {
         this._name = name;
@@ -30,6 +32,8 @@ class Task {
         return this._id;
     }
 }
+
+// when we make a new object of tasks it increament automatically one by one
 let lastId = 1;
 
 function createTask(name, description, assignedTo, dueDate, status) {

@@ -1,6 +1,6 @@
 import { createTask } from './task.js';
 
-const tasks = [];
+// const tasks = [];
 
 const userName = document.getElementById('name');
 const userDescription = document.getElementById('description');
@@ -13,19 +13,24 @@ const invalidDescription = document.getElementById('invalidDescription');
 const invalidAssignedTo = document.getElementById('invalidAssignedTo');
 
 function populateTasks() {
-
+    if (localStorage.getItem("cards")) {
+        // means the program ran once and have the local storage so just return and stop
+        return;
+    }
+    let tasks = [];
     tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'in-progress'));
     tasks.push(createTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'to-do'));
     tasks.push(createTask('TASK 3', 'Implement task layout', 'Parisa', '23/4/2023', 'in-progress'));
     tasks.push(createTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'done'));
     tasks.push(createTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'done'));
     tasks.push(createTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'review'));
-
+    setTasks(tasks);
 }
 
 function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
-    let allTasks = tasks.map(generateTaskHtml).join('');
+
+    let allTasks = getTasks().map(generateTaskHtml).join('');
     taskContainer.innerHTML = allTasks;
     document.querySelectorAll('.delete-btn').forEach(item => {
         item.addEventListener('click', activeDeleteButton)
@@ -85,6 +90,7 @@ function generateTaskHtml(task) {
 
 }
 
+
 populateTasks();
 displayTasks();
 
@@ -115,7 +121,9 @@ const addNewTask = () => {
 
     if (validInputs) {
         const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+        let tasks = getTasks();
         tasks.push(userNewTask);
+        setTasks(tasks);
         displayTasks();
     }
 
@@ -139,14 +147,15 @@ createButton.addEventListener('click', addNewTask);
 // delete button
 
 function activeDeleteButton(event) {
-    console.log(event.target);
 
     // find the index of task which is clicked then if the value is the same as id of task,
+    let tasks = getTasks();
     const index = tasks.findIndex(task => task.id == event.target.id);
     console.log(event.target.id);
     console.log(index);
     // then remove it from the task array
     tasks.splice(index, 1);
+    setTasks(tasks);
     // call displayTask to show in UI
     displayTasks();
 };
@@ -170,6 +179,7 @@ function activeSaveButton(event) {
     const taskId = event.target.id;
 
     // console.log('hgkhikl');
+    let tasks = getTasks();
     const index = tasks.findIndex(task => task.id == event.target.id);
     const saveName = document.getElementById(`${taskId}-name`).value
     const saveStatus = document.getElementById(`${taskId}-status`).value
@@ -184,8 +194,8 @@ function activeSaveButton(event) {
     tasks[index]._assignedTo = saveAssignedTo
     tasks[index]._dueDate = saveDueDate
 
-    console.log(tasks[index]);
 
+    setTasks(tasks);
     displayTasks();
 }
 // cancel button
@@ -193,6 +203,19 @@ function activeCancelButton(event) {
     const taskId = event.target.id;
     document.getElementById(`${taskId}-original`).style.display = 'block';
     document.getElementById(`${taskId}-editable`).style.display = 'none';
-    console.log('check');
+    // console.log('check');
+
+}
+// get tasks array from local storage
+function getTasks() {
+    let get = localStorage.getItem("cards");
+    let deserialisedTasks = JSON.parse(get);
+    return deserialisedTasks.map(card => Object.assign(createTask(), card));
+}
+
+// store tasks array to local storage
+function setTasks(input) {
+    let stInput = JSON.stringify(input);
+    localStorage.setItem("cards", stInput);
 
 }
