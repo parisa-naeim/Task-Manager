@@ -1,22 +1,27 @@
 import { createTask } from './task.js';
 
 // const tasks = [];
-
+// get the element of the form
 const userName = document.getElementById('name');
 const userDescription = document.getElementById('description');
 const userAssignTo = document.getElementById('assigned-to');
 const userDueDate = document.getElementById('due-Date');
 const userStatus = document.getElementById('status');
 
+// get the elements which wants to give us error message
 const invalidName = document.getElementById('invalidName');
 const invalidDescription = document.getElementById('invalidDescription');
 const invalidAssignedTo = document.getElementById('invalidAssignedTo');
 
+
+// generate initial tasks
 function populateTasks() {
     if (localStorage.getItem("cards")) {
-        // means the program ran once and have the local storage so just return and stop
+        // means the program ran once and have the local storage so just return and not make another 6 tasks again so 
+        // I use return to stop and not to run the rest of function
         return;
     }
+    // by using creatTask from task.js create 6 initial task 
     let tasks = [];
     tasks.push(createTask('TASK 1', 'Design the wireframe', 'Parisa', '23/4/2023', 'in-progress'));
     tasks.push(createTask('TASK 2', 'Implement task form', 'Vishnu', '25/4/2023', 'to-do'));
@@ -24,14 +29,20 @@ function populateTasks() {
     tasks.push(createTask('TASK 4', 'Style the page', 'Vishnu', '17/4/2023', 'done'));
     tasks.push(createTask('TASK 5', 'Requirement gathering', 'Parisa', '20/4/2023', 'done'));
     tasks.push(createTask('TASK 6', 'Make the page responsive', 'Vishnu', '27/4/2023', 'review'));
+    // store the initial tasks in local storage
     setTasks(tasks);
 }
-
+// get tasks from local storage and render tasks on UI
 function displayTasks() {
     const taskContainer = document.getElementById('taskCards');
-
+    // get tasks from local storage
+    // generate card html for each task by using generateTaskHtml function and map itterator
+    // join all the cards html to give us string from array of string
     let allTasks = getTasks().map(generateTaskHtml).join('');
     taskContainer.innerHTML = allTasks;
+
+    // set evenLIstener for buttons
+
     document.querySelectorAll('.delete-btn').forEach(item => {
         item.addEventListener('click', activeDeleteButton)
 
@@ -45,11 +56,13 @@ function displayTasks() {
     document.querySelectorAll('.cancel-btn').forEach(item => {
         item.addEventListener('click', activeCancelButton)
     });
-
+    document.querySelectorAll('.mark-as-done').forEach(item => {
+        item.addEventListener('click', markAsDone)
+    });
 
 }
 
-
+// this function get task object and make a card html for UI
 
 function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
@@ -63,7 +76,11 @@ function generateTaskHtml(task) {
                                 <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
                                 <p class="card-text"> ${task.description}</p>
                                 <label>${task.assignedTo}</label>
-                                <label>${task.dueDate}<label>
+                                </br>
+                                <label>${task.dueDate}</label>
+                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br>
+                                <input type="submit" class="btn btn-secondary mark-as-done" value="mark as done" id="${task.id}" >
+                                </div>
                             </div>
                             
                         </div>
@@ -95,7 +112,7 @@ populateTasks();
 displayTasks();
 
 // active create button
-
+// validate inputs and create new task
 const addNewTask = () => {
     invalidName.innerHTML = "";
     invalidDescription.innerHTML = "";
@@ -118,7 +135,8 @@ const addNewTask = () => {
         invalidAssignedTo.innerHTML = "Please provide valid assigned to value with at lease 8 chars";
     }
 
-
+    // if the inputs are valid it create tasks,then get the current tasks from local storage 
+    //  add the new task to the local array then set the changes to the local storage, then display on UI
     if (validInputs) {
         const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
         let tasks = getTasks();
@@ -217,5 +235,17 @@ function getTasks() {
 function setTasks(input) {
     let stInput = JSON.stringify(input);
     localStorage.setItem("cards", stInput);
+}
 
+
+// mark as done
+
+function markAsDone(event) {
+
+    let tasks = getTasks();
+    const index = tasks.findIndex(task => task.id == event.target.id);
+    // console.log(index);
+    tasks[index]._status = "done";
+    setTasks(tasks);
+    displayTasks();
 }

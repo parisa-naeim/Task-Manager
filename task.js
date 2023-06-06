@@ -33,11 +33,26 @@ class Task {
     }
 }
 
-// when we make a new object of tasks it increament automatically one by one
-let lastId = 1;
+
+// make a new obj from class and increament id one by one and maintain in local storage
 
 function createTask(name, description, assignedTo, dueDate, status) {
-    return new Task(name, description, assignedTo, dueDate, status, lastId++);
+
+
+    if (localStorage.getItem("lastId")) {
+        //    lastId found in local storage (1) so it goes through if statement and make 2,3,...
+        let fromStorage = localStorage.getItem("lastId");
+        let parsed = parseInt(fromStorage);
+        let lastId = parsed + 1;
+        localStorage.setItem("lastId", lastId);
+    } else {
+        // this is the first task so the id is 1
+        localStorage.setItem("lastId", "1");
+    }
+    // it create task with the id from local storage
+    return new Task(name, description, assignedTo, dueDate, status, localStorage.getItem("lastId"));
+
+
 }
 
 export { createTask };
