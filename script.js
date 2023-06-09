@@ -78,8 +78,12 @@ function generateTaskHtml(task) {
                                 <label>${task.assignedTo}</label>
                                 </br>
                                 <label>${task.dueDate}</label>
-                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br>
-                                <input type="submit" class="btn btn-secondary mark-as-done" value="mark as done" id="${task.id}" >
+                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br>                                <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%"></div>
+                                </div>
+                                <br>
+                                <br>
+                                    <input type="submit" class="btn btn-secondary mark-as-done" value="mark as done" id="${task.id}"/>
                                 </div>
                             </div>
                             
