@@ -33,13 +33,26 @@ function populateTasks() {
     setTasks(tasks);
 }
 // get tasks from local storage and render tasks on UI
-function displayTasks() {
+function displayTasks(filterBy) {
     const taskContainer = document.getElementById('taskCards');
+    const assigneeDropdown = document.getElementById('assignee');
+
     // get tasks from local storage
     // generate card html for each task by using generateTaskHtml function and map itterator
     // join all the cards html to give us string from array of string
-    let allTasks = getTasks().map(generateTaskHtml).join('');
-    taskContainer.innerHTML = allTasks;
+
+    let assignees  = getTasks().map(tasks =>
+        `<li><a class="dropdown-item" href="#">${tasks.assignedTo}</a></li>`
+    ).reduce((a,b) => { if (a.indexOf(b) < 0 ) a.push(b); return a;},[]).join('');
+
+    if(filterBy) {
+        console.log("task will be filtered by ", filterBy);
+        taskContainer.innerHTML =  getTasks().filter(task => task.status === filterBy).map(generateTaskHtml).join('');
+
+    } else {
+        taskContainer.innerHTML = getTasks().map(generateTaskHtml).join('');
+    }
+    assigneeDropdown.innerHTML = assignees;
 
     // set evenLIstener for buttons
 
@@ -50,6 +63,11 @@ function displayTasks() {
     document.querySelectorAll('.edit-btn').forEach(item => {
         item.addEventListener('click', activeEditButton)
     });
+
+    document.querySelectorAll('.dropdown-menu.filter-status li a').forEach(item => {
+        item.addEventListener('click', filterTasks)
+    });
+
     document.querySelectorAll('.save-btn').forEach(item => {
         item.addEventListener('click', activeSaveButton)
     });
@@ -68,22 +86,24 @@ function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
                         <div class="card ">
                         <div class="change">
-                        <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
-                        <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
+                        <span class="material-symbols-outlined avatar" title="${task.assignedTo}">person</span>
                         </div>
                         <div class="card-body">
                                 <h5 class="card-title">${task.name}</h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">${task.status}</h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">${task.status.toUpperCase()}</h6>
                                 <p class="card-text"> ${task.description}</p>
                                 <label>${task.assignedTo}</label>
                                 </br>
                                 <label>${task.dueDate}</label>
-                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br>                                <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br> 
+                                Progress <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                                     <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%"></div>
                                 </div>
                                 <br>
                                 <br>
-                                    <input type="submit" class="btn btn-secondary mark-as-done" value="mark as done" id="${task.id}"/>
+                                <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
+                                <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
+                                <span class="material-symbols-outlined mark-as-done" title="mark as done" id="${task.id}">done</span>
                                 </div>
                             </div>
                             
@@ -126,17 +146,17 @@ const addNewTask = () => {
 
     if (userName.value.length <= 8) {
         validInputs = false;
-        invalidName.innerHTML = "Please provide valid name with at lease 8 chars";
+        invalidName.innerHTML = "Please provide valid name with at least 8 chars";
     }
 
     if (userDescription.value.length <= 15) {
         validInputs = false;
-        invalidDescription.innerHTML = "Please provide valid description with at lease 15 chars";
+        invalidDescription.innerHTML = "Please provide valid description with at least 15 chars";
     }
 
     if (userAssignTo.value.length <= 8) {
         validInputs = false;
-        invalidAssignedTo.innerHTML = "Please provide valid assigned to value with at lease 8 chars";
+        invalidAssignedTo.innerHTML = "Please provide valid assigned to value with at least 8 chars";
     }
 
     // if the inputs are valid it create tasks,then get the current tasks from local storage 
@@ -192,6 +212,15 @@ function activeEditButton(event) {
     document.getElementById(`${taskId}-editable`).style.display = 'block';
     console.log('check');
 }
+
+function filterTasks(event) {
+    const filterBy = event.target.getAttribute("value");
+    // `${taskId}-original`
+    // taskId + '-original'
+    displayTasks(filterBy);
+    console.log("filter", filterBy);
+}
+
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', clearForm);
 
