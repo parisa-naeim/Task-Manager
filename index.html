@@ -42,14 +42,14 @@
                     <br>
                     <label for="status" class="form-label">Status</label>
                     <select name="status" class="form-select" id="status">
-                        <option value="to-do">to-do</option>
-                        <option value="in-progress">in-progress</option>
-                        <option value="review">review</option>
-                        <option value="done">done</option>
+                        <option value="to-do">To Do</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="review">Review</option>
+                        <option value="done">Done</option>
                     </select>
                     <br>
-                    <input type="submit" class="btn btn-secondary" value="create" id="create">
-                    <input type="reset" class="btn btn-secondary" value="reset" id="reset">
+                    <input type="submit" class="btn btn-primary" value="Create" id="create">
+                    <input type="reset" class="btn btn-secondary" value="Reset" id="reset">
                 </div>
             </div>
 
@@ -66,11 +66,7 @@
                                 aria-expanded="false">
                                 Assignee
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Leo</a></li>
-                                <li><a class="dropdown-item" href="#">Alex</a></li>
-                                <li><a class="dropdown-item" href="#">Sara</a></li>
-                                <li><a class="dropdown-item" href="#">Hana</a></li>
+                            <ul class="dropdown-menu assigned-to" id="assignee">
                             </ul>
                         </div>
                     </div>
@@ -80,11 +76,11 @@
                                 aria-expanded="false">
                                 Status
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">TO DO</a></li>
-                                <li><a class="dropdown-item" href="#">IN PROGRESS</a></li>
-                                <li><a class="dropdown-item" href="#">REVIEW</a></li>
-                                <li><a class="dropdown-item" href="#">DONE</a></li>
+                            <ul class="dropdown-menu filter-status">
+                                <li><a class="dropdown-item" value="to-do" href="#">To Do</a></li>
+                                <li><a class="dropdown-item" value="in-progress"  href="#">In Progress</a></li>
+                                <li><a class="dropdown-item" value="review" href="#">Review</a></li>
+                                <li><a class="dropdown-item" value="done" href="#">Done</a></li>
                             </ul>
                         </div>
                     </div>
