@@ -62,6 +62,10 @@
     box-shadow: 5px 3px rgb(174, 184, 46);
 }
 
+.card.expired {
+    box-shadow: 5px 3px orangered;
+}
+
 .container {
     padding-bottom: 70px;
 }

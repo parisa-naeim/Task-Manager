@@ -7,6 +7,7 @@ const userDescription = document.getElementById('description');
 const userAssignTo = document.getElementById('assigned-to');
 const userDueDate = document.getElementById('due-Date');
 const userStatus = document.getElementById('status');
+const todayDate = new Date();
 
 // get the elements which wants to give us error message
 const invalidName = document.getElementById('invalidName');
@@ -82,9 +83,15 @@ function displayTasks(filterBy) {
 
 // this function get task object and make a card html for UI
 
+const isExpired = (dueDate) => {
+    const formattedToday = Date.parse(todayDate.getDate() + '/' +  todayDate.getMonth() + '/' + todayDate.getFullYear());
+    const dateArray = dueDate.split("/");
+    const formattedDueDate = Date.parse(dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2]);
+    return formattedDueDate <= formattedToday;
+}
 function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
-                        <div class="card ">
+                        <div class="card ${isExpired(task.dueDate) ? 'expired' : ''}">
                         <div class="change">
                         <span class="material-symbols-outlined avatar" title="${task.assignedTo}">person</span>
                         </div>
@@ -103,7 +110,7 @@ function generateTaskHtml(task) {
                                 <br>
                                 <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
                                 <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
-                                <span class="material-symbols-outlined mark-as-done" title="mark as done" id="${task.id}">done</span>
+                                <span class="material-symbols-outlined mark-as-done" title="Mark as done" id="${task.id}">done</span>
                                 </div>
                             </div>
                             
