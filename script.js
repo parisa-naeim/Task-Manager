@@ -45,15 +45,28 @@ function displayTasks(filterBy) {
     let assignees  = getTasks().map(tasks =>
         `<li><a class="dropdown-item" href="#">${tasks.assignedTo}</a></li>`
     ).reduce((a,b) => { if (a.indexOf(b) < 0 ) a.push(b); return a;},[]).join('');
+    assigneeDropdown.innerHTML = assignees;
 
     if(filterBy) {
-        console.log("task will be filtered by ", filterBy);
-        taskContainer.innerHTML =  getTasks().filter(task => task.status === filterBy).map(generateTaskHtml).join('');
-
+        const filteredTasks = getTasks().filter(task => task.status === filterBy);
+        if(filteredTasks.length > 0) {
+            taskContainer.innerHTML = getTasks().filter(task => task.status === filterBy).map(generateTaskHtml).join('');
+        } else {
+            taskContainer.innerHTML = `<div id="error-popup" class="popup">
+                            <div class="popup-content">
+                                <p>No task's found for your selection. Please re-select different filter</p>
+                                <button class="btn btn-primary" id="closePopup">Close</button>
+                            </div>
+                        </div>`;
+            document.getElementById("error-popup").classList.add("show");
+            document.getElementById("closePopup").addEventListener('click', ()=> {
+                document.getElementById("error-popup").classList.remove("show");
+                taskContainer.innerHTML = getTasks().map(generateTaskHtml).join('');
+            });
+        }
     } else {
         taskContainer.innerHTML = getTasks().map(generateTaskHtml).join('');
     }
-    assigneeDropdown.innerHTML = assignees;
 
     // set evenLIstener for buttons
 
@@ -66,7 +79,7 @@ function displayTasks(filterBy) {
     });
 
     document.querySelectorAll('.dropdown-menu.filter-status li a').forEach(item => {
-        item.addEventListener('click', filterTasks)
+        item.addEventListener('click', filterTasksByStatus)
     });
 
     document.querySelectorAll('.save-btn').forEach(item => {
@@ -83,15 +96,9 @@ function displayTasks(filterBy) {
 
 // this function get task object and make a card html for UI
 
-const isExpired = (dueDate) => {
-    const formattedToday = Date.parse(todayDate.getDate() + '/' +  todayDate.getMonth() + '/' + todayDate.getFullYear());
-    const dateArray = dueDate.split("/");
-    const formattedDueDate = Date.parse(dateArray[1] + '/' + dateArray[0] + '/' + dateArray[2]);
-    return formattedDueDate <= formattedToday;
-}
 function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
-                        <div class="card ${isExpired(task.dueDate) ? 'expired' : ''}">
+                        <div class="card">
                         <div class="change">
                         <span class="material-symbols-outlined avatar" title="${task.assignedTo}">person</span>
                         </div>
@@ -169,7 +176,8 @@ const addNewTask = () => {
     // if the inputs are valid it create tasks,then get the current tasks from local storage 
     //  add the new task to the local array then set the changes to the local storage, then display on UI
     if (validInputs) {
-        const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+        let givenDueDateArray = userDueDate.value.split('-');
+        const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value,  givenDueDateArray[2] +"/" + givenDueDateArray[1] + "/" + givenDueDateArray[0], userStatus.value);
         let tasks = getTasks();
         tasks.push(userNewTask);
         setTasks(tasks);
@@ -220,7 +228,7 @@ function activeEditButton(event) {
     console.log('check');
 }
 
-function filterTasks(event) {
+function filterTasksByStatus(event) {
     const filterBy = event.target.getAttribute("value");
     // `${taskId}-original`
     // taskId + '-original'
