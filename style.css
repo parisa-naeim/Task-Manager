@@ -21,13 +21,16 @@
     border: 1px solid rgb(182, 46, 46);
 }
 
-.layout {
-
-    /* height:400px; */
-    /* border: 1px solid black; */
-
-
+.user-form.p-4.border.rounded-2{
+    border: 3px rgb(174, 184, 46) solid !important;
 }
+
+.form-control:focus, .form-control:hover, .form-select:focus {
+    border-color: white !important;
+    border: 3px rgb(174, 184, 46) solid !important;
+    box-shadow: 0 0 0 0.5px rgb(174, 184, 46);
+}
+
 
 .footer {
     text-align: center;
