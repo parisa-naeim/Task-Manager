@@ -109,16 +109,17 @@ function generateTaskHtml(task) {
                                 <label>${task.assignedTo}</label>
                                 </br>
                                 <label>${task.dueDate}</label>
-                                <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br> 
+                                <div>
+                                </br></br> 
                                 Progress <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%">
-                                    ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%</div>
+                                <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0 || task.status === "done" ? 100 : 0}%">
+                                    ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0 || task.status === "done" ? 100 : 0}%</div>
                                 </div>
                                 <br>
                                 <br>
                                 <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
                                 <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
-                                <span class="material-symbols-outlined mark-as-done" title="Mark as done" id="${task.id}">done</span>
+                                <span style="display:${(task.status === "done") ? "none" : "inilne-block"}" class="material-symbols-outlined mark-as-done" title="Mark as done" id="${task.id}">done</span>
                                 </div>
                             </div>
                             
