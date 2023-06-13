@@ -7,6 +7,7 @@ const userDescription = document.getElementById('description');
 const userAssignTo = document.getElementById('assigned-to');
 const userDueDate = document.getElementById('due-Date');
 const userStatus = document.getElementById('status');
+const todayDate = new Date();
 
 // get the elements which wants to give us error message
 const invalidName = document.getElementById('invalidName');
@@ -44,15 +45,28 @@ function displayTasks(filterBy) {
     let assignees  = getTasks().map(tasks =>
         `<li><a class="dropdown-item" href="#">${tasks.assignedTo}</a></li>`
     ).reduce((a,b) => { if (a.indexOf(b) < 0 ) a.push(b); return a;},[]).join('');
+    assigneeDropdown.innerHTML = assignees;
 
     if(filterBy) {
-        console.log("task will be filtered by ", filterBy);
-        taskContainer.innerHTML =  getTasks().filter(task => task.status === filterBy).map(generateTaskHtml).join('');
-
+        const filteredTasks = getTasks().filter(task => task.status === filterBy);
+        if(filteredTasks.length > 0) {
+            taskContainer.innerHTML = getTasks().filter(task => task.status === filterBy).map(generateTaskHtml).join('');
+        } else {
+            taskContainer.innerHTML = `<div id="error-popup" class="popup">
+                            <div class="popup-content">
+                                <p>No task's found for your selection. Please re-select different filter</p>
+                                <button class="btn btn-primary" id="closePopup">Close</button>
+                            </div>
+                        </div>`;
+            document.getElementById("error-popup").classList.add("show");
+            document.getElementById("closePopup").addEventListener('click', ()=> {
+                document.getElementById("error-popup").classList.remove("show");
+                taskContainer.innerHTML = getTasks().map(generateTaskHtml).join('');
+            });
+        }
     } else {
         taskContainer.innerHTML = getTasks().map(generateTaskHtml).join('');
     }
-    assigneeDropdown.innerHTML = assignees;
 
     // set evenLIstener for buttons
 
@@ -65,7 +79,7 @@ function displayTasks(filterBy) {
     });
 
     document.querySelectorAll('.dropdown-menu.filter-status li a').forEach(item => {
-        item.addEventListener('click', filterTasks)
+        item.addEventListener('click', filterTasksByStatus)
     });
 
     document.querySelectorAll('.save-btn').forEach(item => {
@@ -84,7 +98,7 @@ function displayTasks(filterBy) {
 
 function generateTaskHtml(task) {
     return `<div class="col-md-6 col-lg-4 col-12" id="${task.id}-original">  
-                        <div class="card ">
+                        <div class="card">
                         <div class="change">
                         <span class="material-symbols-outlined avatar" title="${task.assignedTo}">person</span>
                         </div>
@@ -97,13 +111,14 @@ function generateTaskHtml(task) {
                                 <label>${task.dueDate}</label>
                                 <div style="display:${(task.status === "done") ? "none" : "block"}"></br></br> 
                                 Progress <div class="progress" role="progressbar" aria-label="Default striped example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
-                                    <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%"></div>
+                                <div class="progress-bar progress-bar-striped" style="width: ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%">
+                                    ${task.status === "in-progress" ? 25 : 0 || task.status === "review" ? 75 : 0}%</div>
                                 </div>
                                 <br>
                                 <br>
                                 <span class="material-symbols-outlined delete-btn" id="${task.id}">delete</span>
                                 <span class="material-symbols-outlined edit-btn" id="${task.id}" >stylus</span>
-                                <span class="material-symbols-outlined mark-as-done" title="mark as done" id="${task.id}">done</span>
+                                <span class="material-symbols-outlined mark-as-done" title="Mark as done" id="${task.id}">done</span>
                                 </div>
                             </div>
                             
@@ -162,7 +177,8 @@ const addNewTask = () => {
     // if the inputs are valid it create tasks,then get the current tasks from local storage 
     //  add the new task to the local array then set the changes to the local storage, then display on UI
     if (validInputs) {
-        const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value, userDueDate.value, userStatus.value);
+        let givenDueDateArray = userDueDate.value.split('-');
+        const userNewTask = createTask(userName.value, userDescription.value, userAssignTo.value,  givenDueDateArray[2] +"/" + givenDueDateArray[1] + "/" + givenDueDateArray[0], userStatus.value);
         let tasks = getTasks();
         tasks.push(userNewTask);
         setTasks(tasks);
@@ -213,7 +229,7 @@ function activeEditButton(event) {
     console.log('check');
 }
 
-function filterTasks(event) {
+function filterTasksByStatus(event) {
     const filterBy = event.target.getAttribute("value");
     // `${taskId}-original`
     // taskId + '-original'
