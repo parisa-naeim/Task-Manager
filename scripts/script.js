@@ -148,10 +148,10 @@ function generateTaskHtml(task) {
                                 <h5 class="card-title">${task.name}</h5>
                                 <br/>
                                 <p class="card-text">${task.description}</p>
-                                <img src="../images/person.svg" alt="Assigend to"/>
+                                <img src="./images/person.svg" alt="Assigend to"/>
                                 <label>${task.assignedTo}</label>
                                 </br>
-                                <img src="../images/date.svg" alt="Due date"/>
+                                <img src="./images/date.svg" alt="Due date"/>
                                 <label>${task.dueDate}</label>
                                 <div>
                                 </br></br> 
