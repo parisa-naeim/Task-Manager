@@ -6,27 +6,10 @@
   padding-bottom: 20px;
 }
 
-.form {
-  /* height:400px; */
-  border: 1px solid rgb(182, 46, 46);
-}
-
-.user-form.p-4.border.rounded-2 {
-  border: 3px rgb(174, 184, 46) solid !important;
-}
-
-.form-control:focus,
-.form-control:hover,
-.form-select:focus {
-  border-color: white !important;
-  border: 3px rgb(174, 184, 46) solid !important;
-  box-shadow: 0 0 0 0.5px rgb(174, 184, 46);
-}
-
 .footer {
   text-align: center;
-  background-color: gray;
-  /* margin-top: 10px; */
+  background-color: #eeeeee;
+  border-top: 1px solid #aaaaaa;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -49,31 +32,14 @@
 }
 
 .card {
-  background-color: rgb(207, 201, 201);
+  background-color: #f7f8f9;
   margin-bottom: 5px;
-  border: 1px solid;
+  border: 1px solid #e7e7e7;
   padding: 3px;
-  box-shadow: 5px 3px rgb(174, 184, 46);
 }
 
 .container {
   padding-bottom: 70px;
-}
-
-input.btn-primary {
-  background-color: rgb(174, 184, 46);
-}
-
-input.btn-primary:hover {
-  background-color: rgb(126, 186, 85);
-}
-
-input.btn-secondary {
-  background-color: orangered;
-}
-
-input.btn-secondary:hover {
-  background-color: lightpink;
 }
 
 .change-d {
@@ -96,7 +62,7 @@ p.error {
   color: red;
 }
 
-.material-symbols-outlined {
+.material-symbols-outlined .avatar {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   cursor: pointer;
 }
@@ -131,7 +97,4 @@ p.error {
 .popup-content button {
   display: block;
   margin: 0 auto;
-}
-.show {
-  display: block;
 }
