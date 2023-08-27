@@ -8,8 +8,8 @@
 
 .footer {
   text-align: center;
-  background-color: gray;
-  /* margin-top: 10px; */
+  background-color: #eeeeee;
+  border-top: 1px solid #aaaaaa;
   position: fixed;
   bottom: 0;
   width: 100%;
