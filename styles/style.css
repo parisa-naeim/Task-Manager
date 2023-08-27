@@ -62,7 +62,7 @@ p.error {
   color: red;
 }
 
-.material-symbols-outlined {
+.material-symbols-outlined .avatar {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   cursor: pointer;
 }
