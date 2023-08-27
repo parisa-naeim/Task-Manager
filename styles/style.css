@@ -6,23 +6,6 @@
   padding-bottom: 20px;
 }
 
-.form {
-  /* height:400px; */
-  border: 1px solid rgb(182, 46, 46);
-}
-
-.user-form.p-4.border.rounded-2 {
-  border: 3px rgb(174, 184, 46) solid !important;
-}
-
-.form-control:focus,
-.form-control:hover,
-.form-select:focus {
-  border-color: white !important;
-  border: 3px rgb(174, 184, 46) solid !important;
-  box-shadow: 0 0 0 0.5px rgb(174, 184, 46);
-}
-
 .footer {
   text-align: center;
   background-color: gray;
@@ -58,22 +41,6 @@
 
 .container {
   padding-bottom: 70px;
-}
-
-input.btn-primary {
-  background-color: rgb(174, 184, 46);
-}
-
-input.btn-primary:hover {
-  background-color: rgb(126, 186, 85);
-}
-
-input.btn-secondary {
-  background-color: orangered;
-}
-
-input.btn-secondary:hover {
-  background-color: lightpink;
 }
 
 .change-d {
